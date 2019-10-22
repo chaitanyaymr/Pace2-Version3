@@ -5,10 +5,12 @@ declare var navigator:any;
 export class PaceEnvironment implements OnInit{
   public loadingPopup: any;
     public API_url :any;
+  
     public n_errorcount :any=0;
     public v_message :any='';
     public headers;
     public ApiUrl:any;
+    public ApiUrl_v1:any;
     public newApiUrl:any="";
     public  Paceimg:any;
     public ipAddress:any="";
@@ -19,7 +21,7 @@ constructor( public alertController: AlertController,
     public alertCtrl: AlertController )
     {
       this.ApiUrl="http://devpace2api.onsitedealersolutions.com/api/";
-      // this.ApiUrl="http://paceadmin.onsitedealersolutions.com/ws/api/";
+      this.ApiUrl_v1="http://paceadmin.onsitedealersolutions.com/ws/api/";
       this.Paceimg="http://paceadmin.onsitedealersolutions.com/images/"
 }
 ngOnInit(){

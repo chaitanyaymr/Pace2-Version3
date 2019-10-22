@@ -14,6 +14,7 @@ import { LoadingServiceProvider } from '../providers/loading-service/loading-ser
 import { Network } from '@ionic-native/network';
 import { NetworkInterface } from '@ionic-native/network-interface';
 import {FCM} from '@ionic-native/fcm';
+import { OdsServiceV1Provider } from '../providers/ods-service-v1/ods-service-v1';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {FCM} from '@ionic-native/fcm';
     Device,
     LoadingServiceProvider,
     Network,NetworkInterface,
-    FCM
+    FCM,
+    OdsServiceV1Provider
   ]
 })
 export class AppModule {}
