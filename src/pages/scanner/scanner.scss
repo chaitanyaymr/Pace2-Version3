@@ -1,0 +1,48 @@
+page-scanner {
+    .scroll-content{
+        background:url(../../assets/imgs/prof_bg.png) top fixed !important;        
+        -webkit-background-size: cover !important;
+        -moz-background-size: cover !important;
+        background-size:cover !important;
+       background-position: center center;
+     margin-top:0px !important;
+    }
+
+    .content-ios{
+        margin-top:354px !important;
+    }
+    .content-an{
+        margin-top:70% !important;
+
+    }
+    ion-grid {
+        border-left:2px solid;
+    }
+    input {
+        text-transform: uppercase;
+    }
+    .item-md.item-input.item-input-has-focus .item-inner, .item-md.item-input.input-has-focus .item-inner {
+        border-bottom-color: none !important;
+        -webkit-box-shadow: unset !important;
+        box-shadow: unset !important;
+      }
+      .item-inner{
+        border-style: unset !important;
+        }
+        .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+          border-bottom-color: none !important;
+          -webkit-box-shadow: unset !important;
+          box-shadow: unset !important;
+        }
+  
+        .row-height-1
+        {
+            max-height:50%;
+            overflow-y:scroll;
+        }
+        .row-height-2
+        {
+            max-height:60%;
+            overflow-y:scroll;
+        }
+}

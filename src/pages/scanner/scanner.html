@@ -1,0 +1,190 @@
+
+<ion-header [ngClass]="(platform_tabclass==true)&& 'homeheaderclass-ios' || 'homeheaderclass-an'" >
+    <ion-row>
+      <ion-col style="padding:0px;">
+          <pace2header></pace2header>
+      </ion-col>
+    </ion-row>
+    <ion-row style="background-image: linear-gradient(to bottom right,#225ab4,#076bd0);"  >
+      <ion-col style="padding:0px;">
+          <ion-label style="font-size:2rem;padding:0px;margin:13px 8px 13px 20px;font-family:'HelveticaNeueLTStd-Bd'" (click)="appconst.sitechangealert()">{{dlrname}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <!--- *************************************************************************************************************************************** -->
+    <ion-row style="padding:10px 16px 0px 16px">
+        <ion-col>
+          <ion-item style="background:white">
+            <ion-label style="color:black">{{lbl_ddlscantype}}</ion-label>
+            <ion-select  interface="popover"  style="max-width:80%">
+               <ion-option value="VIN" selected (ionSelect)="changeddlscantype('V')" style="background:black;color:white">VIN#</ion-option>
+               <ion-option value="STOCK" (ionSelect)="changeddlscantype('S')" style="background:black;color:white">STOCK#</ion-option>
+               <ion-option value="RO" (ionSelect)="changeddlscantype('R')" style="background:black;color:white">RO# </ion-option>
+               <ion-option value="WORK" (ionSelect)="changeddlscantype('W')" style="background:black;color:white">WORK ORDER#</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row style="padding:10px 16px 0px 16px">
+        <ion-col>
+          <ion-item style="background:white">
+            <ion-label style="color:black">Status</ion-label>
+            <ion-select  interface="popover"  style="max-width:80%" [(ngModel)]="ddlstatustype">
+               <ion-option value="A"  style="background:black;color:white">ALL</ion-option>
+               <ion-option value="O"  style="background:black;color:white">Open</ion-option>
+               <ion-option value="N"  style="background:black;color:white">New</ion-option>
+               <ion-option value="I"  style="background:black;color:white">In-progress</ion-option>
+               <ion-option value="C"  style="background:black;color:white">Completed</ion-option>
+               <ion-option value="P"  style="background:black;color:white">Invoiced</ion-option>
+               <ion-option value="WA" style="background:black;color:white">Waiting for Approval</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+     <ion-row  style="padding:10px 16px 10px 21px" *ngIf="ddlscantype=='V'">
+       <ion-col style="max-width:59%;padding:0px">
+         
+          <ion-item no-lines style="box-shadow:unset;padding:0px;margin:0px;min-height:4.3rem!important;background:white">
+          <ion-input type="text" style="padding:0px 0px 0px 5px;background:white;color:black;height:4.3rem" name="vin" [(ngModel)]="scannedData.text" placeholder="VIN" (ionChange)="maxVin($event)" ></ion-input>
+        </ion-item>
+       </ion-col>
+       <ion-col style="max-width:40%;padding:0px;">
+         <button ion-button block style="background:#208cfe;height:4.3rem;margin:0px;padding:0px;border-radius:0px;" *ngIf="(scannedData.text=='')"  (click)="scan()"><ion-icon name="expand" style="color:white" >&nbsp;&nbsp;SCAN</ion-icon></button>
+         <button ion-button block style="background:#208cfe;height:4.3rem;margin:0px;padding:0px;border-radius:0px;" *ngIf="(scannedData.text!='')" (click)="search()">SEARCH</button>
+       </ion-col>
+     </ion-row>
+
+     <ion-row  style="padding:10px 16px 10px 21px" *ngIf="ddlscantype=='S'">
+      <ion-col style="max-width:59%;padding:0px">
+          <ion-item no-lines style="box-shadow:unset;padding:0px;margin:0px;min-height:4.3rem!important">
+         <ion-input type="text" style="padding:0px 0px 0px 5px;background:white;color:black;height:4.3rem" name="stock" [(ngModel)]="scannedData.text" placeholder="STOCK" (ionChange)="maxStock($event)" ></ion-input>
+          </ion-item>
+      </ion-col>
+      <ion-col style="max-width:40%;padding:0px;">
+       <button ion-button block style="background:#208cfe;height:4.3rem;margin:0px;padding:0px;border-radius:0px;" (click)="search()" >SEARCH</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row  style="padding:10px 16px 10px 21px" *ngIf="ddlscantype=='R'">
+      <ion-col style="max-width:59%;padding:0px">
+          <ion-item no-lines style="box-shadow:unset;padding:0px;margin:0px;min-height:4.3rem!important">
+         <ion-input type="text" style="padding:0px 0px 0px 5px;background:white;color:black;height:4.3rem" name="ro" [(ngModel)]="scannedData.text" placeholder="RO"  ></ion-input>
+          </ion-item>
+      </ion-col>
+      <ion-col style="max-width:40%;padding:0px;">
+        
+       <button ion-button block style="background:#208cfe;height:4.3rem;margin:0px;padding:0px;border-radius:0px;" (click)="search()" >SEARCH</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row  style="padding:10px 16px 10px 21px" *ngIf="ddlscantype=='W'">
+      <ion-col style="max-width:59%;padding:0px">
+          <ion-item no-lines style="box-shadow:unset;padding:0px;margin:0px;min-height:4.3rem!important">
+         <ion-input type="text" style="padding:0px 0px 0px 5px;background:white;color:black;height:4.3rem" name="wo" [(ngModel)]="scannedData.text" placeholder="WO"  ></ion-input>
+         </ion-item>
+       </ion-col>
+      <ion-col style="max-width:40%;padding:0px;">
+         
+        <button ion-button block style="background:#208cfe;height:4.3rem;margin:0px;padding:0px;border-radius:0px;" (click)="search()" >SEARCH</button>
+      
+      </ion-col>
+    </ion-row>
+<!-- **************************************************************************************************************************************************************************** -->
+  </ion-header>
+  
+  <ion-content [ngClass]="(platform_tabclass==true)&& 'content-ios' || 'content-an'">
+    
+ 
+        <ion-row *ngIf="workOrderInfo?.length>0" [ngClass]="(row_height==2)&& 'row-height-2' || 'row-height-1'">
+      <ion-col>
+        <ion-card *ngFor="let w of workOrderInfo"   >
+         <ion-grid [ngStyle]="{'border-left': getColor(w.clr) }">
+            <ion-row>
+                <ion-col style="max-width:35%;text-align:right;padding-right:0px;">
+                  <ion-label style="color:#208cfe;padding:0px;margin:0px;text-align:right">VIN#:</ion-label>
+                </ion-col>
+                 <ion-col style="padding-left:0px">
+                  <ion-label style="color:black;padding:0px;margin:0px;float:left;padding-left:5px;" >{{w.Vin}}</ion-label> 
+                </ion-col>
+              </ion-row>
+           <ion-row>
+             <ion-col  style="max-width:35%;text-align:right;padding-right:0px;">
+               <ion-label style="color:#208cfe;padding:0px;margin:0px;text-align:right">STOCK#:</ion-label>
+              </ion-col>
+             <ion-col style="padding-left:0px">
+               <ion-label style="color:black;padding:0px;margin:0px;float:left;padding-left:5px;" >{{w.Stock}}</ion-label> 
+             </ion-col>
+           </ion-row>
+           
+           <ion-row>
+              <ion-col  style="max-width:35%;text-align:right;padding-right:0px;">
+                <ion-label style="color:#208cfe;padding:0px;margin:0px;text-align:right">WO#:</ion-label>
+              </ion-col>
+              <ion-col style="padding-left:0px">
+                <ion-label style="color:black;padding:0px;margin:0px;float:left;padding-left:5px;">{{w.WO}}</ion-label> 
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col  style="max-width:35%;text-align:right;padding-right:0px;">
+                <ion-label style="color:#208cfe;padding:0px;margin:0px;text-align:right">Item Number:</ion-label>
+              </ion-col>
+              <ion-col style="padding-left:0px">
+                <ion-label style="color:black;padding:0px;margin:0px;float:left;padding-left:5px;">{{w.ItemNo}}</ion-label> 
+              </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col  style="max-width:35%;text-align:right;padding-right:0px;" >
+                  <ion-label style="color:#208cfe;padding:0px;margin:1px;text-align:right">Item Description:</ion-label>
+                </ion-col>
+                <ion-col style="padding-left:0px">
+                <ion-item no-lines style="padding:0px;display:contents;min-height:0rem;">
+                    <ion-label style="color:rgb(3, 2, 2);padding:0px;margin:0px;float:left;padding-left:5px;white-space: pre-wrap;font-size:1.4rem">{{w.ItemDesc}}</ion-label> 
+                </ion-item>
+                 
+                </ion-col>
+              </ion-row>
+            <ion-row>
+                <ion-col  style="max-width:35%;text-align:right;padding-right:0px;">
+                  <ion-label style="color:#208cfe;padding:0px;margin:0px;text-align:right">Status:</ion-label>
+               </ion-col>
+               <ion-col style="padding-left:0px">
+                  <ion-label style="color:black;padding:0px;margin:0px;float:left;padding-left:5px;">{{w.Status}}</ion-label> 
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col  style="max-width:35%;text-align:right;padding-right:0px;">
+                  <ion-label style="color:#208cfe;padding:0px;margin:0px;text-align:right">Invoice#:</ion-label>
+                 </ion-col>
+                 <ion-col style="padding-left:0px">
+                  <ion-label style="color:black;padding:0px;margin:0px;float:left;padding-left:5px;">{{w.InvoiceId}}</ion-label> 
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col  style="max-width:35%;text-align:right;padding-right:0px;">
+                    <ion-label style="color:#208cfe;padding:0px;margin:0px;text-align:right">Invoice Date:</ion-label>
+                 </ion-col>
+                 <ion-col style="padding-left:0px">
+                    <ion-label style="color:black;padding:0px;margin:0px;float:left;padding-left:5px;">{{w.InvoiceDate}}</ion-label> 
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col  style="max-width:35%;text-align:right;padding-right:0px;">
+                    <ion-label style="color:#208cfe;padding:0px;margin:0px;text-align:right">Amount Billed:</ion-label>
+                 </ion-col>
+                 <ion-col style="padding-left:0px">
+                    <ion-label style="color:black;padding:0px;margin:0px;float:left;padding-left:5px;">{{w.Amount}}</ion-label> 
+                  </ion-col>
+                </ion-row>
+         </ion-grid>
+        </ion-card>
+      </ion-col>
+    </ion-row>  
+    <ion-row *ngIf="(workOrderInfo?.length==0) &&(initialserve==1)" style="background:transparent">
+      <ion-col style="padding-top:10rem">
+      
+          <ion-label style="color:white;text-align:center;font-size:2rem;background:transparent"> No Records Found</ion-label>
+       
+      </ion-col>
+    </ion-row>
+  
+  </ion-content>
+  

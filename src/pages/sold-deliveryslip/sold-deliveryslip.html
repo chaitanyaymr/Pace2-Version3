@@ -1,0 +1,101 @@
+<ion-header [ngClass]="(platform_tabclass==true)&& 'homeheaderclass-ios' || 'homeheaderclass-an'" >
+  <ion-row>
+    <ion-col style="padding:0px;">
+      <pace2header></pace2header>
+    </ion-col>
+  </ion-row>
+  <ion-row  (click)="PaceEnv.sitechangealert()" style="background-image: linear-gradient(to bottom right,#225ab4,#076bd0);"  >
+      <ion-col style="padding:0px">
+       <ion-label style="font-size:2rem;font-family: 'HelveticaNeueLTStd-Bd';float:left;padding-left:20px">{{siteTitle}}</ion-label>    
+      </ion-col>
+    </ion-row>
+</ion-header>
+<ion-content style="background:none;">
+  
+
+    <ion-row>
+        <ion-col>
+            <div class="tabclass" [ngClass]="(platform_tabclass==true)&& 'tabclass-ios' || 'tabclass-android'   "></div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col style="max-width:30%;padding:5px 0px 5px 5px">
+          <ion-label class="soldcardlbl">VIN#:</ion-label>
+        </ion-col>
+        <ion-col style="max-width:67%;padding:5px 0px 5px 5px">
+            <ion-item no-lines style="box-shadow:unset;padding:0px;margin:0px;min-height:4.3rem !important; ">
+            <ion-input name="vin" type="text" class="inputtxtclass" [(ngModel)]="SoldDeliveryData.VIN" (ionBlur)="ResetScanTyp()" (ionChange)="maxVin($event)"  style="border-top-right-radius:0px;border-bottom-right-radius:0px;height:4.3rem;padding:0px;font-size:1.4rem"></ion-input>
+            <button ion-button large color="dark" clear (click)="scan()" item-end style="border-top-left-radius:0px;border-bottom-left-radius:0px;background-color:#191919 !important;height:4.3rem;margin:0px;padding:5px;">
+                <img src="assets/imgs/scan_icon.png"  style="height:1.6rem;" />
+              </button>
+          </ion-item>
+        </ion-col>
+       
+    </ion-row>
+    <ion-row>
+        <ion-col style="padding:0px;">
+          <ion-label class="soldcardlbl"  style="text-align:center;margin:5px;">OR</ion-label>
+        </ion-col>
+        
+    </ion-row>
+    <ion-row>
+        <ion-col style="max-width:30%;padding:0px 0px 5px 5px">
+          <ion-label class="soldcardlbl">STOCK#:</ion-label>
+        </ion-col>
+        <ion-col style="max-width:68%;padding-top:0px;">
+            <ion-item no-lines style="box-shadow:unset;padding:0px;">
+                <ion-input type="text" class="inputtxtclass" maxlength="10" [(ngModel)]="SoldDeliveryData.StockNumber" (ionChange)="maxStock($event)" style="font-size:1.4rem"></ion-input>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-row  *ngIf="emproleid=='6'">
+        <ion-col style="max-width:30%;padding:5px 0px 5px 5px">
+          <ion-label class="soldcardlbl" text-wrap>Sales Person:</ion-label>
+        </ion-col>
+        <ion-col style="max-width:68%">
+           
+               <ion-select interface="popover" style="color:black;border-radius:5px;border:0.5px solid gray;text-align:center;max-width: 100% !important;background:white;" [(ngModel)]="requestddl">
+                    <ion-option  *ngFor="let user of requestBy" value="{{user.id}}" (ionSelect)="changeddlrequestedby(user)">{{user.name}}</ion-option>                         
+                </ion-select>
+
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+          <div style="border-bottom: 1px solid #b7b7b7;"></div>
+                <div style="padding-top:15px;padding-bottom:15px;padding-left:1.3em;">
+                <input type="checkbox" id="chKsoldslip" style="display:none;" class="radioapplyall" (change)="addValue($event)" [(ngModel)]="SoldDeliveryData.deliverycheck" [checked]="SoldDeliveryData.deliverycheck">
+                <label for="chKsoldslip"><b>Pre-Owned</b> Delivery (1:00)</label>
+              </div>
+           <div style="border-bottom: 1px solid #b7b7b7;"></div>
+        </ion-col>       
+    </ion-row>
+    <ion-row>
+      <ion-col>
+          <div class="notesclass">Notes:</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+          <ion-item style="width:100%;text-align:center;background:transparent">
+              <ion-textarea rows="4" [(ngModel)]="SoldDeliveryData.Notes" style="color:black;padding:5px;background:white;border-radius:5px;"></ion-textarea>
+            </ion-item>
+      </ion-col>
+    </ion-row>
+  
+    <ion-row>
+        <ion-col style="padding-bottom:0px !important">
+          <div style="margin-left:8%;">
+              <button ion-button icon-only (click)="showDatePicker()" style="background:transparent;float:left;-webkit-box-shadow:none !important;height:3rem"><ion-icon name="calendar" style="color:black;padding:0 0.2em;"></ion-icon></button>
+             <span (click)="showDatePicker()"> <ion-label style="float:left;margin-top:8px;width:34%;color:black;background:white;padding:5px 0px 3px 0px;text-indent:15px;border-radius:3px;">{{date}}</ion-label></span>
+              <img src="assets/imgs/timer_icon.png"  (click)="showTimePicker()"  style="float:left;padding:10px 5px 0px 0px"/>
+            <span (click)="showTimePicker()">  <ion-label style="float:left;margin-top:7px;width:34%;color:black;background:white;padding:5px 0px 5px 0px;text-indent:15px;border-radius:3px;">{{time}}</ion-label></span>
+          </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <button ion-button full style="width:78%;margin:0px auto 2px;text-transform:none;font-size:1.6rem;border-radius:5px;" (click)="submitSoldSlip()">Submit Slip</button>
+        </ion-col>
+      </ion-row>
+</ion-content>

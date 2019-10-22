@@ -1,0 +1,73 @@
+page-support-request {
+    .scroll-content{
+        background:url(../../assets/imgs/Pace2_inner_bg.png) top fixed !important;        
+        -webkit-background-size: cover !important;
+        -moz-background-size: cover !important;
+        background-size:cover !important;
+       background-position: center center;
+       margin-top:120px !important;
+       -webkit-overflow-scrolling: unset !important;
+    }
+    .tabclass{
+        background-image: url('../assets/imgs/Sprt_req_img.png');
+    }
+    .supportlbl
+    {
+        color: black;     
+        text-align:right;
+     
+        font-size:1.4rem !important;
+     
+        font-family: 'HelveticaNeueLTStd-Bd'
+    }
+    .inputtxtclass
+    {
+        padding:0px 0px 0px 10px;
+        background:white;
+        color:black;
+       // width: 260px;
+        border: 1px solid #d7d7d7;
+        border-radius: 3px;
+    }
+   .item-md.item-block .item-inner{
+    padding:0px;
+}
+
+.item-md.item-input.item-input-has-focus .item-inner, .item-md.item-input.input-has-focus .item-inner {
+    border-bottom-color: none !important;
+    -webkit-box-shadow: unset !important;
+    box-shadow: unset !important;
+  }
+  .item-inner{
+    border-style: unset !important;
+    }
+    .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+      border-bottom-color: none !important;
+      -webkit-box-shadow: unset !important;
+      box-shadow: unset !important;
+    }
+
+
+    .supportLabel
+    {
+        height: 35px;
+        background: #e0272e;
+        color: #fff;
+        position: relative;
+        width: 230px;
+        text-align: center;
+        line-height: 35px;
+        margin: 2% 0;
+        font-size: 1.8rem;
+    }
+    .supportLabel::after{
+      content: "";
+      position: absolute;
+      height: 0;
+      width: 0;
+      left: 99%;
+      top: -3px;
+      border: 20px dotted transparent;
+      border-left: 20px dotted #e0272e;
+    }
+}

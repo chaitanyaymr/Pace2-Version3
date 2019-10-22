@@ -1,0 +1,152 @@
+
+<ion-header  >
+  <ion-row style="padding:20px 10px 10px 10px ">
+    <ion-col style="padding:0px;">
+        <ion-buttons start style="float:left" *ngIf="float_button==false">  
+            <button (click)="closeModal()" icon-only style="background:transparent;">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back" style="color:#afafaf;font-size: 3rem;"></ion-icon>
+              </button>
+            </ion-buttons>
+         <ion-label style="font-size:2rem;margin:0px;padding-left:10px;color:white;">Details</ion-label>
+    </ion-col>
+  </ion-row>
+ 
+  
+    <ion-row style="background-image: linear-gradient(to bottom right,#225ab4,#076bd0);"(click)="appconst.sitechangealert()">
+    <ion-col style="padding:0px;">
+         <ion-label style="font-size:2rem;padding:8px;margin:0px;padding-left:20px;color:white">{{dlrname}}</ion-label>
+        </ion-col>
+      </ion-row>
+</ion-header>
+
+<ion-content>
+  <ion-fab right bottom  *ngIf="float_button==true" color="primary">
+     <button ion-fab  (click)="closeModal()">
+       <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+     </button>
+  </ion-fab>
+    
+      <ion-row style="border-bottom:0.5px solid #d7d7d7">
+          <ion-col col-4>
+            <ion-label style="color:#208cfe">VIN #</ion-label>
+          </ion-col>
+          <ion-col col-8 style="text-align:right">
+             <ion-label style="color:white">{{moreInfo.VINID}}</ion-label>
+          </ion-col>
+        </ion-row>
+      <ion-row style="border-bottom:0.5px solid #d7d7d7">
+        <ion-col col-4>
+          <ion-label style="color:#208cfe">STOCK #</ion-label>
+        </ion-col>
+        <ion-col col-8 style="text-align:right">
+           <ion-label style="color:white">{{moreInfo.STOCKID}}</ion-label>
+        </ion-col>
+      </ion-row>
+  
+        <ion-row style="border-bottom:0.5px solid #d7d7d7">
+            <ion-col col-4>
+              <ion-label style="color:#208cfe">RO #</ion-label>
+            </ion-col>
+            <ion-col col-8 style="text-align:right">
+               <ion-label style="color:white">{{moreInfo.RO}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row style="border-bottom:0.5px solid #d7d7d7">
+              <ion-col col-4>
+                <ion-label style="color:#208cfe">PO #</ion-label>
+              </ion-col>
+              <ion-col col-8 style="text-align:right">
+                 <ion-label style="color:white">{{moreInfo.PO}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row style="border-bottom:0.5px solid #d7d7d7">
+                <ion-col col-4>
+                  <ion-label style="color:#208cfe">WO #</ion-label>
+                </ion-col>
+                <ion-col col-8 style="text-align:right">
+                   <ion-label style="color:white">{{moreInfo.WONUMBER}}</ion-label>
+                </ion-col>
+              </ion-row>
+              <ion-row style="border-bottom:0.5px solid #d7d7d7">
+                  <ion-col col-4>
+                    <ion-label style="color:#208cfe">DUE BY</ion-label>
+                  </ion-col>
+                  <ion-col col-8 style="text-align:right">
+                     <ion-label style="color:white">{{moreInfo.REQDATE}} @ {{moreInfo.REQTIME}}</ion-label>
+                     <!-- <ion-label style="color:white">{{device}}</ion-label> -->
+                  </ion-col>
+                </ion-row>
+                <ion-row style="border-bottom:0.5px solid #d7d7d7">
+                    <ion-col col-4>
+                      <ion-label style="color:#208cfe">CREATED BY</ion-label>
+                    </ion-col>
+                    <ion-col col-8 style="text-align:right">
+                       <ion-label style="color:white">{{moreInfo.REQUESTEDBYNAME}}</ion-label>
+                       <ion-label style="color:white">{{moreInfo.TS | date}}</ion-label>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row style="border-bottom:0.5px solid #d7d7d7">
+                      <ion-col col-4>
+                        <ion-label style="color:#208cfe">REQUESTED BY</ion-label>
+                      </ion-col>
+                      <ion-col col-8 style="text-align:right">
+                         <ion-label style="color:white">{{moreInfo.REQUESTEDBYNAME}}</ion-label>
+                         <ion-label style="color:white">{{moreInfo.TS | date}}</ion-label>
+                      </ion-col>
+                    </ion-row>
+                  <ion-row > 
+                      <ion-col col-4>
+                        <ion-label style="color:#208cfe">APPROVED BY</ion-label>
+                      </ion-col>
+                      <ion-col col-8 style="text-align:right">
+                         <ion-label style="color:white">{{moreInfo.ACCEPTEDBYNAME}}</ion-label>
+                          <ion-label style="color:white" > {{approvedTs}}</ion-label>
+                      </ion-col>
+                    </ion-row>
+
+               <ion-row style="margin:25px;border-bottom:2px solid white;" *ngIf="service_details?.length>0">
+              </ion-row>     
+              <!--  ************************ Service Order Details- *************   -->
+
+          <ion-row>
+            <ion-col>
+              <ion-card *ngFor="let service of moreInfo.WOSERVICES" style="margin-bottom: 5%;">
+                <ion-card-header style="padding:0px;" [ngStyle]="{'background-color':getColor(service.STATUS) }">
+                       <ion-label style="color:white;padding-left:3%;font-size:1.8rem;margin:6px;font-weight:bold;">{{service.MASKNAME}}</ion-label>
+                </ion-card-header>
+                <ion-card-content style="padding:0px;">
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col col-3 style="align-items:center;justify-content:center;display:flex;">
+                        <img src="{{(service.ASSIGNMENTINFO[0] != undefined ? service.ASSIGNMENTINFO[0].ASSIGNEDTOIMAGE : '' )}}" style="width:50px;height:50px" onError="this.src='http://paceadmin.onsitedealersolutions.com/images/profile/profile.png'">
+                      </ion-col>
+                      <ion-col col-9>
+                         <ion-grid style="padding:0pc;margin:0px;">
+                             <ion-row>
+                               <ion-col>
+                                  <ion-label style="margin:0px;color:#208cfe;float:left">Assigned To:</ion-label> <ion-label style="margin:0px;color:black;float:left;padding-left:1%">{{(service.ASSIGNMENTINFO[0] != undefined ? service.ASSIGNMENTINFO[0].ASSIGNEDTONAME : '')}}</ion-label>
+                               </ion-col>
+                             </ion-row>
+                             <ion-row>
+                               <ion-col>
+                                  <ion-label style="margin:0px;color:#208cfe;float:left">Assigned By:</ion-label> <ion-label style="margin:0px;color:black;float:left;padding-left:1%">{{(service.ASSIGNMENTINFO[0] != undefined ? service.ASSIGNMENTINFO[0].ASSIGNEDBYNAME : '')}}</ion-label>
+                               </ion-col>
+                             </ion-row>
+                         </ion-grid>
+                         
+                        
+                     </ion-col>
+                    </ion-row>
+                    <ion-row style="border-top:1px solid black">
+                      <ion-col>
+                        <ion-label style="color:#208cfe;float:left;padding-left:1%;margin:6px 0px 6px 6px;">Status:</ion-label> <ion-label style="color:black;float:left;padding-left:1%;margin:6px 6px 6px 0px;">{{(service.STATUS != undefined ? getStatus(service.STATUS) : '')}}</ion-label>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+
+
+</ion-content>

@@ -1,0 +1,71 @@
+
+<ion-header [ngClass]="(platform_tabclass==true)&& 'homeheaderclass-ios' || 'homeheaderclass-an'" >
+    <ion-row>
+      <ion-col style="padding:0px;">
+          <pace2header></pace2header>
+      </ion-col>
+    </ion-row>
+    <ion-row style="background-image: linear-gradient(to bottom right,#225ab4,#076bd0);"  >
+      <ion-col style="padding:0px;">
+          <ion-label style="font-size:2rem;padding:0px;margin:13px 8px 13px 20px;font-family:'HelveticaNeueLTStd-Bd'" (click)="appconstants.sitechangealert()">{{dlrname}}</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-header>
+
+<ion-content padding>
+        <ion-row>
+                <ion-col>
+                  <div class="tabclass" [ngClass]="(platform_tabclass==true)&& 'tabclass-ios' || 'tabclass-android'   "></div>
+                </ion-col>
+         </ion-row>
+        
+  <ion-row>
+    <ion-col>
+      <ion-label style="color:#225ab4;margin:2px;white-space:pre-wrap">Please fill the form below and we will get back to you as soon as we can</ion-label>
+    </ion-col>
+  </ion-row>
+<ion-row>
+  <ion-col style="max-width:22%">
+    <ion-label class="supportlbl"><span style="color:red">*</span>Name</ion-label>
+  </ion-col>
+  <ion-col style="max-width:70%">
+      <ion-item no-lines style="box-shadow:unset;padding:0px;">
+          <ion-input type="text" class="inputtxtclass" [(ngModel)]="name"></ion-input>
+      </ion-item>
+  </ion-col>
+</ion-row>
+<ion-row>
+    <ion-col style="max-width:22%">
+      <ion-label class="supportlbl"><span style="color:red">*</span>Email</ion-label>
+    </ion-col>
+    <ion-col style="max-width:70%">
+        <ion-item no-lines style="box-shadow:unset;padding:0px;">
+            <ion-input type="text" class="inputtxtclass" [(ngModel)]="email"></ion-input>
+        </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+      <ion-col style="max-width:22%">
+        <ion-label class="supportlbl"><span style="color:red">*</span>Phone</ion-label>
+      </ion-col>
+      <ion-col style="max-width:70%">
+          <ion-item no-lines style="box-shadow:unset;padding:0px;">
+              <ion-input type="text" class="inputtxtclass" [(ngModel)]="phone" (ionChange)="maxPhone($event)"></ion-input>
+          </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+          <ion-label class="supportlbl" style="float:left;margin-left:20px;"><span style="color:red">*</span>Message</ion-label>
+          <p>
+              <textarea  [(ngModel)]="message" style="border:0.5px solid gray;border-radius:4px;color:black;width:94%;padding:10px;margin-left:14px" rows="10">
+              </textarea>
+          </p>
+      </ion-col>
+    </ion-row>
+    <ion-row >
+        <ion-col style="align-items:center;display:flex;justify-content:center">
+            <button ion-button block (click)="submitRequest()" style="max-width:70%;text-transform:capitalize;font-family: 'HelveticaNeueLTStd-Bd'" >Send</button>
+        </ion-col>
+      </ion-row>
+</ion-content>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "74394171448",
+    "firebase_url": "https://pace2onsite.firebaseio.com",
+    "project_id": "pace2onsite",
+    "storage_bucket": "pace2onsite.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:74394171448:android:3f20cb2fc56b296f",
+        "android_client_info": {
+          "package_name": "com.pllc.pace2ods"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "74394171448-l4p32oqn0s3404g87alvoho31mpuepr2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsNFtdCeYrILmD3Ad-cRMPXXC3rg6bB04"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
