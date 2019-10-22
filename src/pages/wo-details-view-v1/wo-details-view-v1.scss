@@ -1,3 +1,13 @@
 page-wo-details-view-v1 {
-
+    .contentbg{
+        background:url(../../assets/imgs/prof_bg.png) top fixed !important;        
+    }
+    .scroll-content{
+        background:url(../../assets/imgs/prof_bg.png) top fixed !important;        
+        -webkit-background-size: cover !important;
+        -moz-background-size: cover !important;
+        background-size:cover !important;
+       background-position: center center;
+       margin-top:100px !important;
+    }
 }

@@ -1,18 +1,152 @@
-<!--
-  Generated template for the WoDetailsViewV1Page page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>wo-details-view_v1</ion-title>
-  </ion-navbar>
-
+<ion-header  >
+  <ion-row style="padding:20px 10px 10px 10px ">
+    <ion-col style="padding:0px;">
+        <ion-buttons start style="float:left" *ngIf="float_button==false">  
+            <button (click)="closeModal()" icon-only style="background:transparent;">
+              <ion-icon ios="ios-arrow-back" md="md-arrow-back" style="color:#afafaf;font-size: 3rem;"></ion-icon>
+              </button>
+            </ion-buttons>
+         <ion-label style="font-size:2rem;margin:0px;padding-left:10px;color:white;">Details</ion-label>
+    </ion-col>
+  </ion-row>
+ 
+  
+    <ion-row style="background-image: linear-gradient(to bottom right,#225ab4,#076bd0);"(click)="appconst.sitechangealert()">
+    <ion-col style="padding:0px;">
+         <ion-label style="font-size:2rem;padding:8px;margin:0px;padding-left:20px;color:white">{{dlrname}}</ion-label>
+        </ion-col>
+      </ion-row>
 </ion-header>
 
+<ion-content>
+  <ion-fab right bottom  *ngIf="float_button==true" color="primary">
+     <button ion-fab  (click)="closeModal()">
+       <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+     </button>
+  </ion-fab>
+    
+      <ion-row style="border-bottom:0.5px solid #d7d7d7">
+          <ion-col col-4>
+            <ion-label style="color:#208cfe">VIN #</ion-label>
+          </ion-col>
+          <ion-col col-8 style="text-align:right">
+             <ion-label style="color:white">{{vin}}</ion-label>
+          </ion-col>
+        </ion-row>
+      <ion-row style="border-bottom:0.5px solid #d7d7d7">
+        <ion-col col-4>
+          <ion-label style="color:#208cfe">STOCK #</ion-label>
+        </ion-col>
+        <ion-col col-8 style="text-align:right">
+           <ion-label style="color:white">{{stock}}</ion-label>
+        </ion-col>
+      </ion-row>
+  
+        <ion-row style="border-bottom:0.5px solid #d7d7d7">
+            <ion-col col-4>
+              <ion-label style="color:#208cfe">RO #</ion-label>
+            </ion-col>
+            <ion-col col-8 style="text-align:right">
+               <ion-label style="color:white">{{ro}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row style="border-bottom:0.5px solid #d7d7d7">
+              <ion-col col-4>
+                <ion-label style="color:#208cfe">PO #</ion-label>
+              </ion-col>
+              <ion-col col-8 style="text-align:right">
+                 <ion-label style="color:white">{{po}}</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row style="border-bottom:0.5px solid #d7d7d7">
+                <ion-col col-4>
+                  <ion-label style="color:#208cfe">WO #</ion-label>
+                </ion-col>
+                <ion-col col-8 style="text-align:right">
+                   <ion-label style="color:white">{{wo}}</ion-label>
+                </ion-col>
+              </ion-row>
+              <ion-row style="border-bottom:0.5px solid #d7d7d7">
+                  <ion-col col-4>
+                    <ion-label style="color:#208cfe">DUE BY</ion-label>
+                  </ion-col>
+                  <ion-col col-8 style="text-align:right">
+                     <ion-label style="color:white">{{dueby}}</ion-label>
+                     <!-- <ion-label style="color:white">{{device}}</ion-label> -->
+                  </ion-col>
+                </ion-row>
+                <ion-row style="border-bottom:0.5px solid #d7d7d7">
+                    <ion-col col-4>
+                      <ion-label style="color:#208cfe">CREATED BY</ion-label>
+                    </ion-col>
+                    <ion-col col-8 style="text-align:right">
+                       <ion-label style="color:white">{{createdby}}</ion-label>
+                       <ion-label style="color:white">{{createdTs}}</ion-label>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row style="border-bottom:0.5px solid #d7d7d7">
+                      <ion-col col-4>
+                        <ion-label style="color:#208cfe">REQUESTED BY</ion-label>
+                      </ion-col>
+                      <ion-col col-8 style="text-align:right">
+                         <ion-label style="color:white">{{requestedby}}</ion-label>
+                         <ion-label style="color:white">{{requestedTs}}</ion-label>
+                      </ion-col>
+                    </ion-row>
+                  <ion-row > 
+                      <ion-col col-4>
+                        <ion-label style="color:#208cfe">APPROVED BY</ion-label>
+                      </ion-col>
+                      <ion-col col-8 style="text-align:right">
+                         <ion-label style="color:white">{{approvedby}}</ion-label>
+                          <ion-label style="color:white" > {{approvedTs}}</ion-label>
+                      </ion-col>
+                    </ion-row>
 
-<ion-content padding>
+               <ion-row style="margin:25px;border-bottom:2px solid white;" *ngIf="service_details?.length>0">
+              </ion-row>     
+              <!--  ************************ Service Order Details- *************   -->
+
+          <ion-row>
+            <ion-col>
+              <ion-card *ngFor="let service of service_details">
+                <ion-card-header [ngStyle]="{'background-color':getColor(service.Clr) }" style="padding:0px;">
+                       <ion-label style="color:white;padding-left:3%;font-size:1.8rem;margin:6px;font-weight:bold;">{{service.Title}}</ion-label>
+                </ion-card-header>
+                <ion-card-content style="padding:0px;">
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col col-3 style="align-items:center;justify-content:center;display:flex;">
+                        <img src="{{service.Img}}" style="width:50px;height:50px" onError="this.src='http://paceadmin.onsitedealersolutions.com/images/profile/profile.png'">
+                      </ion-col>
+                      <ion-col col-9>
+                         <ion-grid style="padding:0pc;margin:0px;">
+                             <ion-row>
+                               <ion-col>
+                                  <ion-label style="margin:0px;color:#208cfe;float:left">Assigned To:</ion-label> <ion-label style="margin:0px;color:black;float:left;padding-left:1%">{{service.Assigned_To}}</ion-label>
+                               </ion-col>
+                             </ion-row>
+                             <ion-row>
+                               <ion-col>
+                                  <ion-label style="margin:0px;color:#208cfe;float:left">Assigned By:</ion-label> <ion-label style="margin:0px;color:black;float:left;padding-left:1%">{{service.Assigned_By}}</ion-label>
+                               </ion-col>
+                             </ion-row>
+                         </ion-grid>
+                         
+                        
+                     </ion-col>
+                    </ion-row>
+                    <ion-row style="border-top:1px solid black">
+                      <ion-col>
+                        <ion-label style="color:#208cfe;float:left;padding-left:1%;margin:6px 0px 6px 6px;">Status:</ion-label> <ion-label style="color:black;float:left;padding-left:1%;margin:6px 6px 6px 0px;">{{service.Status}}</ion-label>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+
 
 </ion-content>

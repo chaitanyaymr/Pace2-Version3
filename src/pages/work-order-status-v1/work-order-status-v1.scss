@@ -1,3 +1,15 @@
 page-work-order-status-v1 {
-
+    ion-loading.my-loading-class {
+        .loading-wrapper {
+          background: transparent;
+          box-shadow: none;
+        }
+      }
+      .avatars img{
+        margin: auto;
+    }
+    .scroll-content
+    {
+      margin-top:170px !important;
+    }
 }
