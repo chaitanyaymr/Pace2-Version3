@@ -22,6 +22,7 @@ export class HomePage {
   platform_dlrarrow: boolean = false;
   sitenumber: any = "";
   access_permission:any="";
+  change_version:any="new";
   constructor(private db: DatabaseProvider,
     public odsservice: OdsServiceProvider, private appconst: PaceEnvironment,
     public modalctrl: ModalController, public platform: Platform,private events:Events) {
@@ -70,7 +71,7 @@ export class HomePage {
 
   /*************Getting Site info****************** */
   getSiteInfo(empid) {
-
+    this.change_version="new";
     this.odsservice.GetEmployeeSiteInfo(empid).subscribe((data) => {
 
       if (data.status == 200) {
@@ -155,6 +156,7 @@ export class HomePage {
   }
 
   changeSite() {
+    this.change_version=this.change_version=="new"?"old":"new";
     let site = [];
     this.appconst.startLoading();
 

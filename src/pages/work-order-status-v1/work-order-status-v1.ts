@@ -89,7 +89,7 @@ export class WorkOrderStatusV1Page {
 
   OpenDetails(WOID){
     let WoItem={'WOID':WOID,'Title':this.siteTitle,'EmpId':this.empid,'SiteId':this.siteId}
-    let model=this.modal.create('page-WO-DetailsView',{'WoItem':WoItem});
+    let model=this.modal.create('page-WO-DetailsView_v1',{'WoItem':WoItem});
     model.present();
   }
   presentLoadingCustom() {

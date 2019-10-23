@@ -19,8 +19,8 @@
     
       </ion-col>
     </ion-row>
-
-  <ion-row [ngClass]="(platform_dlrlbl==true)&& 'row1-ios' || 'row1-an'" >
+<!--------------------------------------------------First Row--------------------------------------------------------------------------------------------------------->
+  <ion-row [ngClass]="(platform_dlrlbl==true)&& 'row1-ios' || 'row1-an'"  *ngIf="change_version=='new'">
     <ion-col  navPush="page-newcarsold" style="padding:2px !important">
      <div class="tab_icon1">
       <img src="/assets/pace2_bg_icons/newcar_icon.png" style="height:8rem;margin:auto;">
@@ -31,9 +31,23 @@
        <img src="/assets/pace2_bg_icons/preowner_icon.png" style="height:7rem;margin:auto;">
       </div>
      </ion-col>
+  </ion-row>
+
+  <ion-row [ngClass]="(platform_dlrlbl==true)&& 'row1-ios' || 'row1-an'" *ngIf="change_version=='old'">
+    <ion-col  navPush="page-newcarsold_v1" style="padding:2px !important">
+     <div class="tab_icon1">
+      <img src="/assets/pace2_bg_icons/newcar_icon.png" style="height:8rem;margin:auto;">
+     </div>
+    </ion-col>
+    <ion-col  navPush="page-preownedcar_v1" style="padding:2px !important">
+      <div class="tab_icon2">
+       <img src="/assets/pace2_bg_icons/preowner_icon.png" style="height:7rem;margin:auto;">
+      </div>
+     </ion-col>
     
   </ion-row>
-  <ion-row [ngClass]="(platform_dlrlbl==true)&& 'row2-ios' || 'row2-an'" >
+  <!--------------------------Second Row------------------------------------------------------------------------------------------------------------------------------------------->
+  <ion-row [ngClass]="(platform_dlrlbl==true)&& 'row2-ios' || 'row2-an'" *ngIf="change_version=='new'">
     <ion-col style="padding:2px !important" navPush="page-createworkorder" *ngIf="access_permission=='Y'">
      <div class="tab_icon3">
       <img src="/assets/pace2_bg_icons/wrkord_icon.png" style="height:7rem;margin:auto;">
@@ -50,6 +64,20 @@
       </div>
      </ion-col>
   </ion-row>
+  <ion-row [ngClass]="(platform_dlrlbl==true)&& 'row2-ios' || 'row2-an'"  *ngIf="change_version=='old'">
+    <ion-col style="padding:2px !important" navPush="page-createworkorder_v1" >
+     <div class="tab_icon3">
+      <img src="/assets/pace2_bg_icons/wrkord_icon.png" style="height:7rem;margin:auto;">
+     </div>
+    </ion-col>
+    
+    <ion-col  navPush="workorder-status_v1"  style="padding:2px !important">
+      <div class="tab_icon4">
+       <img src="/assets/pace2_bg_icons/staus_icon.png"   style="height:7rem;margin:auto;">
+      </div>
+     </ion-col>
+  </ion-row>
+  <!--------------------------Last row------------------------------------------------------------------------------------------------------------------------------------------->
   <ion-row [ngClass]="(platform_dlrlbl==true)&& 'row3-ios' || 'row3-an'" >
     <ion-col  style="padding:2px !important" navPush="support-page">
       <div class="tab_icon5">
