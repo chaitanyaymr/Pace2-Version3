@@ -22,7 +22,7 @@ export class HomePage {
   platform_dlrarrow: boolean = false;
   sitenumber: any = "";
   access_permission:any="";
-  change_version:any="new";
+  change_version:any="";
   constructor(private db: DatabaseProvider,
     public odsservice: OdsServiceProvider, private appconst: PaceEnvironment,
     public modalctrl: ModalController, public platform: Platform,private events:Events) {
@@ -36,6 +36,7 @@ export class HomePage {
     }
 
     this.db.getAllUsers().then(res => {
+      console.log("databaseresult::home",res[0]);
       this.empresult = res[0];
 
       this.empid = res[0].EmpId;
@@ -46,11 +47,13 @@ export class HomePage {
       }
       this.dealersiteId = res[0].SiteID;
       this.sitecount = res[0].SiteCount;
-    
+      this.change_version=res[0].change_version;
       if (this.empresult.SiteID == 0) {
         this.getSiteInfo(this.empid);
       }
       else {
+         if(this.change_version=="new")
+         {
           if(res[0].Permission=="Y"){
             this.events.publish('permission:Y');
             this.access_permission="Y";
@@ -61,6 +64,11 @@ export class HomePage {
             this.events.publish('permission:N');  
             this.access_permission="N";
           } 
+         }
+         else{
+           this.events.publish('old:Y');
+           
+         }
           
       }
     });
@@ -71,7 +79,7 @@ export class HomePage {
 
   /*************Getting Site info****************** */
   getSiteInfo(empid) {
-    this.change_version="new";
+   
     this.odsservice.GetEmployeeSiteInfo(empid).subscribe((data) => {
 
       if (data.status == 200) {
@@ -83,6 +91,7 @@ export class HomePage {
           //  this.dealersiteId=value[0].empSiteNumber;
           //  this.dlrname=value[0].empSiteTitle;
           this.dealersiteId = value[0].siteId;
+          this.change_version=this.dealersiteId==1000?"old":"new"
           this.dlrname = value[0].siteTitle;
           this.sitenumber = value[0].siteNumber;
           if (this.dlrname.length > 26) {
@@ -113,17 +122,21 @@ export class HomePage {
                 if(value.Create.toUpperCase()=="Y"){
                   create="Y";
                   this.access_permission="Y";
-                
+                if(this.change_version=="new")
                   this.events.publish('permission:Y');
+                else
+                this.events.publish('old:Y');
                 }
                 else{
                   this.access_permission="N";
-                 
+                  if(this.change_version=="new")
                   this.events.publish('permission:N');
+                  else
+                   this.events.publish('old:Y');
                 }
-               
+              
                   
-                this.db.UpdateSiteInfo_EMP(this.dealersiteId,siteLogo, this.dlrname, this.empresult.EmpId, this.sitecount,this.sitenumber,stockcount,po,ro,create).then((data) => {
+                this.db.UpdateSiteInfo_EMP(this.dealersiteId,siteLogo, this.dlrname, this.empresult.EmpId, this.sitecount,this.sitenumber,stockcount,po,ro,create,this.change_version).then((data) => {
   
                 })
               }
@@ -131,7 +144,7 @@ export class HomePage {
                 this.access_permission="N";
                
                 this.events.publish('permission:N');
-                this.db.UpdateSiteInfo_EMP(this.dealersiteId,siteLogo, this.dlrname, this.empresult.EmpId, this.sitecount,this.sitenumber,stockcount,po,ro,'N').then((data) => {
+                this.db.UpdateSiteInfo_EMP(this.dealersiteId,siteLogo, this.dlrname, this.empresult.EmpId, this.sitecount,this.sitenumber,stockcount,po,ro,'N',this.change_version).then((data) => {
   
                 })
               }
@@ -156,7 +169,7 @@ export class HomePage {
   }
 
   changeSite() {
-    this.change_version=this.change_version=="new"?"old":"new";
+    
     let site = [];
     this.appconst.startLoading();
 
@@ -188,6 +201,7 @@ export class HomePage {
         }
         else {
           this.dealersiteId = data.sitesearchresult.siteId;
+          this.change_version=this.dealersiteId==1000?"old":"new"
           this.dlrname = data.sitesearchresult.siteTitle;
           this.sitenumber = data.sitesearchresult.siteNumber;
           if (this.dlrname.length > 26) {
@@ -219,21 +233,27 @@ export class HomePage {
                 {
                   create="Y";
                   this.access_permission="Y";
+                  if(this.change_version=="new")
                   this.events.publish('permission:Y');
+                  else
+                   this.events.publish('old:Y');
                 }
                 else{
                   this.access_permission="N";
+                  if(this.change_version=="new")
                   this.events.publish('permission:N');
+                  else
+                  this.events.publish('old:Y');
                 }
                   
-                this.db.UpdateSiteInfo_EMP(this.dealersiteId,data.sitesearchresult.siteLogo, this.dlrname, this.empresult.EmpId, this.sitecount,this.sitenumber,stockcount,po,ro,create).then((data) => {
+                this.db.UpdateSiteInfo_EMP(this.dealersiteId,data.sitesearchresult.siteLogo, this.dlrname, this.empresult.EmpId, this.sitecount,this.sitenumber,stockcount,po,ro,create,this.change_version).then((data) => {
   
                 })
               }
               else{
                   this.access_permission="N";
                    this.events.publish("permission:N");
-                   this.db.UpdateSiteInfo_EMP(this.dealersiteId,data.sitesearchresult.siteLogo, this.dlrname, this.empresult.EmpId, this.sitecount,this.sitenumber,stockcount,po,ro,'N').then((data) => {
+                   this.db.UpdateSiteInfo_EMP(this.dealersiteId,data.sitesearchresult.siteLogo, this.dlrname, this.empresult.EmpId, this.sitecount,this.sitenumber,stockcount,po,ro,'N',this.change_version).then((data) => {
   
                   })
    

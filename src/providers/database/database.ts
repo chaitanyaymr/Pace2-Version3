@@ -38,7 +38,7 @@ export class DatabaseProvider {
       {
         this.storage.create({name:"paceUser.db",location:this.loc}).then((db:SQLiteObject)=>{
           this.db=db;
-          db.executeSql("CREATE TABLE  IF NOT EXISTS tblpaceUser(id INTEGER PRIMARY KEY AUTOINCREMENT,EmpId TEXT, LoginId TEXT, Password TEXT,Empname TEXT,Rolename TEXT,RoleID TEXT,Token TEXT,SiteID TEXT,Rem TEXT,Emplogo TEXT,SiteLogo TEXT,SiteTitle TEXT,SiteCount TEXT,DeaprtmentId TEXT,SiteNumber TEXT,LogType TEXT,StockCount TEXT,PO TEXT,RO TEXT,Permission TEXT)",[]);
+          db.executeSql("CREATE TABLE  IF NOT EXISTS tblpaceUser(id INTEGER PRIMARY KEY AUTOINCREMENT,EmpId TEXT, LoginId TEXT, Password TEXT,Empname TEXT,Rolename TEXT,RoleID TEXT,Token TEXT,SiteID TEXT,Rem TEXT,Emplogo TEXT,SiteLogo TEXT,SiteTitle TEXT,SiteCount TEXT,DeaprtmentId TEXT,SiteNumber TEXT,LogType TEXT,StockCount TEXT,PO TEXT,RO TEXT,Permission TEXT,change_version TEXT)",[]);
           this.isOpen=true;
           console.log("Database Created");
           this.databaseReady.next(true);
@@ -48,7 +48,7 @@ export class DatabaseProvider {
       {
         this.storage.create({name:"paceUser.db",iosDatabaseLocation:this.loc}).then((db:SQLiteObject)=>{
           this.db=db;
-          db.executeSql("CREATE TABLE  IF NOT EXISTS tblpaceUser(id INTEGER PRIMARY KEY AUTOINCREMENT,EmpId TEXT, LoginId TEXT, Password TEXT,Empname TEXT,Rolename TEXT,RoleID TEXT,Token TEXT,SiteID TEXT,Rem TEXT,Emplogo TEXT,SiteLogo TEXT,SiteTitle TEXT,SiteCount TEXT,DeaprtmentId TEXT,SiteNumber TEXT,LogType TEXT,StockCount TEXT,PO TEXT,RO TEXT,Permission TEXT)",[]);
+          db.executeSql("CREATE TABLE  IF NOT EXISTS tblpaceUser(id INTEGER PRIMARY KEY AUTOINCREMENT,EmpId TEXT, LoginId TEXT, Password TEXT,Empname TEXT,Rolename TEXT,RoleID TEXT,Token TEXT,SiteID TEXT,Rem TEXT,Emplogo TEXT,SiteLogo TEXT,SiteTitle TEXT,SiteCount TEXT,DeaprtmentId TEXT,SiteNumber TEXT,LogType TEXT,StockCount TEXT,PO TEXT,RO TEXT,Permission TEXT,change_version TEXT)",[]);
           this.isOpen=true;
           console.log("Database Created");
           this.databaseReady.next(true);
@@ -68,7 +68,7 @@ public getDatabaseState()
   {
     return new Promise((resolve,reject)=>{
         this. deleteUser();
-      let query="INSERT INTO tblpaceUser (EmpId,Empname,LoginId,Password,RoleID,Rolename,Token,Rem,SiteID,Emplogo,SiteLogo,SiteTitle,DeaprtmentId,SiteNumber,LogType,StockCount,PO,RO,Permission) VALUES (?,?,?,?,?,?,?,?,0,?,?,'',?,?,?,0,'','','')";
+      let query="INSERT INTO tblpaceUser (EmpId,Empname,LoginId,Password,RoleID,Rolename,Token,Rem,SiteID,Emplogo,SiteLogo,SiteTitle,DeaprtmentId,SiteNumber,LogType,StockCount,PO,RO,Permission,change_version) VALUES (?,?,?,?,?,?,?,?,0,?,?,'',?,?,?,0,'','','','')";
       this.db.executeSql(query,[userId,name,loginid,password,roleid,rolename,token,rem,emplogo,'',empdepid,0,logtype])
              .then((data)=>{
                resolve(data);
@@ -107,7 +107,8 @@ public getDatabaseState()
                   StockCount:data.rows.item(i).StockCount,
                   PO:data.rows.item(i).PO,
                   RO:data.rows.item(i).RO,
-                  Permission:data.rows.item(i).Permission
+                  Permission:data.rows.item(i).Permission,
+                  change_version:data.rows.item(i).change_version
                  });
                }
               resolve(users);
@@ -198,11 +199,11 @@ deleteSiteInfo()
 
 
 
- UpdateSiteInfo_EMP(siteid,sitelogo,sitetitle,empid,sitecount,sitenumber,stockcount,po,ro,permission)
+ UpdateSiteInfo_EMP(siteid,sitelogo,sitetitle,empid,sitecount,sitenumber,stockcount,po,ro,permission,change_version)
   {
     return new Promise((resolve,reject)=>{
-let query="Update tblpaceUser SET SiteID=?,SiteLogo=?,SiteTitle=?,SiteCount=?,SiteNumber=?,StockCount=?,PO=?,RO=?,Permission=?  Where EmpId=?";
-this.db.executeSql(query,[siteid,sitelogo,sitetitle,sitecount,sitenumber,stockcount,po,ro,permission,empid])
+let query="Update tblpaceUser SET SiteID=?,SiteLogo=?,SiteTitle=?,SiteCount=?,SiteNumber=?,StockCount=?,PO=?,RO=?,Permission=?,change_version=?  Where EmpId=?";
+this.db.executeSql(query,[siteid,sitelogo,sitetitle,sitecount,sitenumber,stockcount,po,ro,permission,change_version,empid])
 .then((data)=>{
               resolve(data)
             },(error)=>{reject(error)}

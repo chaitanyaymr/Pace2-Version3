@@ -178,7 +178,16 @@ export class PACE2 {
       {title:"Create Work Order",component:"page-createworkorder", name:"CreateWorkorder"},
    ];
   });
-  
+  events.subscribe("old:Y",()=>{
+    this.pages=[
+      {title:"Home",component:"home-page",name:"Home" },
+      {title:"New Car Delivery Slip", component:"page-newcarsold_v1",name:"Newcarsold"},
+      {title:"Pre-Owned Delivery Slip",component:"page-preownedcar_v1", name:"Preownedcar"},
+      {title:"Vehicle Status", component:"workorder-status_v1",name:"Status"},
+      {title:"Search Vehicle", component:"vin-searchpage_v1",name:"Scanner"},
+      {title:"Create Work Order",component:"page-createworkorder_v1", name:"CreateWorkorder"},
+   ];
+  });
 
 
 
